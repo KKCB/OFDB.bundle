@@ -13,13 +13,6 @@ def Start():
   HTTP.CacheTime = CACHE_1DAY
   HTTP.Headers['User-Agent'] = 'Mozilla/5.0 (Macintosh; U; Intel Mac OS X 10.6; en-US; rv:1.9.2.13) Gecko/20101203 Firefox/3.6.13'
 
-
-def do_page(url, pattern):
-  f = urllib.urlopen(url)
-  html = f.read()
-  hits = re.findall(pattern, html, re.S)
-  return hits
-
 class OFDBAgent(Agent.Movies):
   name = 'OFDB'
   languages = ['de']
@@ -48,8 +41,6 @@ class OFDBAgent(Agent.Movies):
             summary = plot_text[0].replace('<br />', '\n')
             summary = re.sub('(\r)?\n((\r)?\n)+', '\n', summary) # Replace 2 or more newlines with just 1
             summary = String.StripTags(summary).strip() # Strip HTML tags
-            Log("summary")
-            Log(summary)
 
             if summary != '':
               metadata.summary = summary
