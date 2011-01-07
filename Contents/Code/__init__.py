@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 #
 # OFDB metadata agent for Plex
-# Adds German summaries from www.ofdb.de to movies
+# Adds German summaries and genres from www.ofdb.de to movies
 
 import re
 
@@ -26,15 +26,25 @@ class OFDBAgent(Agent.Movies):
   def update(self, metadata, media, lang):
     # Only use data from OFDB if the user has set the language for this section to German (Deutsch)
     if lang == 'de':
-      search_result = HTTP.Request(OFDB_SEARCH_URL % metadata.id).content
+      search_result = HTTP.Request(OFDB_SEARCH_URL % (metadata.id), sleep=1.0).content
       ofdb_id = re.findall('href="film/([^"/]+)', search_result)
 
       if len(ofdb_id) > 0:
-        movie_page = HTTP.Request(OFDB_MOVIE_URL % ofdb_id[0]).content
+        movie_page = HTTP.Request(OFDB_MOVIE_URL % (ofdb_id[0]), sleep=1.0).content
+
+        # Genre(s)
+        genres = re.findall('page=genre&Genre=.+?>([^<]+)', movie_page)
+
+        if len(genres) > 0:
+          metadata.genres.clear()
+          for genre in genres:
+            metadata.genres.add(genre)
+
+        # Summary
         plot_url = re.findall('href="plot/([^"/]+)', movie_page)
 
         if len(plot_url) > 0:
-          plot_page = HTTP.Request(OFDB_PLOT_URL % plot_url[0]).content
+          plot_page = HTTP.Request(OFDB_PLOT_URL % (plot_url[0]), sleep=1.0).content
           plot_text = re.findall('gelesen</b></b><br><br>(.*?)</font></p>', plot_page, re.DOTALL)
 
           if len(plot_text) > 0:

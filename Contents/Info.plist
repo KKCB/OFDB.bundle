@@ -18,7 +18,7 @@
 	<string>1.0</string>
 	<key>PlexAgentAttributionText</key>
 	<string>
-		German movie summaries by &lt;a href=&quot;http://www.ofdb.de/&quot;&gt;OFDB&lt;/a&gt;
+		German movie summaries and genres by &lt;a href=&quot;http://www.ofdb.de/&quot;&gt;OFDB&lt;/a&gt;
 	</string>
 	<key>PlexFrameworkVersion</key>
 	<string>2</string>
