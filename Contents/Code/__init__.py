@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 #
 # OFDB metadata agent for Plex
-# Adds German summaries and genres from www.ofdb.de to movies
+# Adds German summaries, ratings and genres from www.ofdb.de to movies
 
 import re
 
@@ -39,6 +39,13 @@ class OFDBAgent(Agent.Movies):
           metadata.genres.clear()
           for genre in genres:
             metadata.genres.add(genre)
+
+        # Rating
+        rating = re.findall('<br>Note: ([0-9]+\.[0-9]+) &nbsp', movie_page)
+        votes = re.findall('&nbsp;Stimmen: ([0-9]+) &nbsp', movie_page)
+        if len(rating) > 0 and len(votes) > 0:
+          if votes > 3:
+            metadata.rating = float(rating[0])
 
         # Summary
         plot_url = re.findall('href="plot/([^"/]+)', movie_page)
