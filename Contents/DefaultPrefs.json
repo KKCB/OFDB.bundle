@@ -1,0 +1,20 @@
+[
+  {
+    "id":"genres",
+    "label":"Lade Genre von OFDB",
+    "type":"bool",
+    "default":"true"
+  },
+  {
+    "id":"rating",
+    "label":"Lade Bewertung von OFDB",
+    "type":"bool",
+    "default":"true"
+  },
+  {
+    "id":"summary",
+    "label":"Lade Zusammenfassung von OFDB",
+    "type":"bool",
+    "default":"true"
+  }
+]

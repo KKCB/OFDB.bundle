@@ -33,31 +33,34 @@ class OFDBAgent(Agent.Movies):
         movie_page = HTTP.Request(OFDB_MOVIE_URL % (ofdb_id[0]), sleep=1.0).content
 
         # Genre(s)
-        genres = re.findall('page=genre&Genre=.+?>([^<]+)', movie_page)
+        if Prefs['genres']:
+          genres = re.findall('page=genre&Genre=.+?>([^<]+)', movie_page)
 
-        if len(genres) > 0:
-          metadata.genres.clear()
-          for genre in genres:
-            metadata.genres.add(genre)
+          if len(genres) > 0:
+            metadata.genres.clear()
+            for genre in genres:
+              metadata.genres.add(genre)
 
         # Rating
-        rating = re.findall('<br>Note: ([0-9]+\.[0-9]+) &nbsp', movie_page)
-        votes = re.findall('&nbsp;Stimmen: ([0-9]+) &nbsp', movie_page)
-        if len(rating) > 0 and len(votes) > 0:
-          if votes > 3:
-            metadata.rating = float(rating[0])
+        if Prefs['rating']:
+          rating = re.findall('<br>Note: ([0-9]+\.[0-9]+) &nbsp', movie_page)
+          votes = re.findall('&nbsp;Stimmen: ([0-9]+) &nbsp', movie_page)
+          if len(rating) > 0 and len(votes) > 0:
+            if votes > 3:
+              metadata.rating = float(rating[0])
 
         # Summary
-        plot_url = re.findall('href="plot/([^"/]+)', movie_page)
+        if Prefs['summary']:
+          plot_url = re.findall('href="plot/([^"/]+)', movie_page)
 
-        if len(plot_url) > 0:
-          plot_page = HTTP.Request(OFDB_PLOT_URL % (plot_url[0]), sleep=1.0).content
-          plot_text = re.findall('gelesen</b></b><br><br>(.*?)</font></p>', plot_page, re.DOTALL)
+          if len(plot_url) > 0:
+            plot_page = HTTP.Request(OFDB_PLOT_URL % (plot_url[0]), sleep=1.0).content
+            plot_text = re.findall('gelesen</b></b><br><br>(.*?)</font></p>', plot_page, re.DOTALL)
 
-          if len(plot_text) > 0:
-            summary = plot_text[0].replace('<br />', '\n')
-            summary = re.sub('(\r)?\n((\r)?\n)+', '\n', summary) # Replace 2 or more newlines with just 1
-            summary = String.StripTags(summary).strip() # Strip HTML tags
+            if len(plot_text) > 0:
+              summary = plot_text[0].replace('<br />', '\n')
+              summary = re.sub('(\r)?\n((\r)?\n)+', '\n', summary) # Replace 2 or more newlines with just 1
+              summary = String.StripTags(summary).strip() # Strip HTML tags
 
-            if summary != '':
-              metadata.summary = summary
+              if summary != '':
+                metadata.summary = summary
