@@ -33,6 +33,7 @@ class OFDBAgent(Agent.Movies):
         movie_page = HTTP.Request(OFDB_MOVIE_URL % (ofdb_id[0]), sleep=1.0).content
 
         # Genre(s)
+        metadata.genres.clear()
         if Prefs['genres']:
           genres = re.findall('page=genre&Genre=.+?>([^<]+)', movie_page)
 
@@ -42,6 +43,7 @@ class OFDBAgent(Agent.Movies):
               metadata.genres.add(genre)
 
         # Rating
+        metadata.rating = None
         if Prefs['rating']:
           rating = re.findall('<br>Note: ([0-9]+\.[0-9]+) &nbsp', movie_page)
           votes = re.findall('&nbsp;Stimmen: ([0-9]+) &nbsp', movie_page)
@@ -50,6 +52,7 @@ class OFDBAgent(Agent.Movies):
               metadata.rating = float(rating[0])
 
         # Summary
+        metadata.summary = ''
         if Prefs['summary']:
           plot_url = re.findall('href="plot/([^"/]+)', movie_page)
 
