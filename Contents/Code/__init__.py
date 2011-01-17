@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 #
 # OFDB metadata agent for Plex
-# Adds German summaries, ratings and genres from www.ofdb.de to movies
+# Adds German title, summaries, ratings and genres from www.ofdb.de to movies
 
 import re
 
@@ -31,6 +31,15 @@ class OFDBAgent(Agent.Movies):
 
       if len(ofdb_id) > 0:
         movie_page = HTTP.Request(OFDB_MOVIE_URL % (ofdb_id[0]), sleep=1.0).content
+
+        # Title
+        metadata.title = '';
+        if Prefs['title']:
+          title = re.findall('<font face="Arial,Helvetica,sans-serif" size="3"><b>(.*?)</b></font>', movie_page)
+
+        if len(title) > 0:
+          metadata.title = metadata.title = re.sub(r"(.*), (Die|Der|Das|The)", r"\2 \1", title[0])
+
 
         # Genre(s)
         metadata.genres.clear()

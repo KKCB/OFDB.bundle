@@ -1,5 +1,11 @@
 [
   {
+    "id":"title",
+    "label":"Lade Titel von OFDB",
+    "type":"bool",
+    "default":"true"
+  },
+  {
     "id":"genres",
     "label":"Lade Genre von OFDB",
     "type":"bool",
