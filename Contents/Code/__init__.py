@@ -11,7 +11,7 @@ OFDB_PLOT_URL = 'http://www.ofdb.de/plot/%s'
 
 def Start():
   HTTP.CacheTime = CACHE_1DAY
-  HTTP.Headers['User-Agent'] = 'Mozilla/5.0 (Macintosh; U; Intel Mac OS X 10.6; en-US; rv:1.9.2.13) Gecko/20101203 Firefox/3.6.13'
+  HTTP.Headers['User-Agent'] = 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10.8; rv:15.0) Gecko/20100101 Firefox/15.0.1'
 
 class OFDBAgent(Agent.Movies):
   name = 'OFDB'
@@ -56,6 +56,7 @@ class OFDBAgent(Agent.Movies):
         if Prefs['rating']:
           rating = re.findall('<br>Note: ([0-9]+\.[0-9]+) &nbsp', movie_page)
           votes = re.findall('&nbsp;Stimmen: ([0-9]+) &nbsp', movie_page)
+
           if len(rating) > 0 and len(votes) > 0:
             if votes > 3:
               metadata.rating = float(rating[0])
@@ -76,3 +77,11 @@ class OFDBAgent(Agent.Movies):
 
               if summary != '':
                 metadata.summary = summary
+
+        # Content rating
+        metadata.content_rating = ''
+        if Prefs['content_rating']:
+          content_rating = re.findall('Freigabe: FSK ([0-9]+)', movie_page)
+
+          if len(content_rating) > 0:
+            metadata.content_rating = 'de/%s' % content_rating[0]
