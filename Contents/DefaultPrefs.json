@@ -1,26 +1,32 @@
 [
-  {
-    "id":"title",
-    "label":"Lade Titel von OFDB",
-    "type":"bool",
-    "default":"true"
-  },
-  {
-    "id":"genres",
-    "label":"Lade Genre von OFDB",
-    "type":"bool",
-    "default":"true"
-  },
-  {
-    "id":"rating",
-    "label":"Lade Bewertung von OFDB",
-    "type":"bool",
-    "default":"true"
-  },
-  {
-    "id":"summary",
-    "label":"Lade Zusammenfassung von OFDB",
-    "type":"bool",
-    "default":"true"
-  }
+	{
+		"id":"title",
+		"label":"Titel",
+		"type":"bool",
+		"default":"true"
+	},
+	{
+		"id":"summary",
+		"label":"Zusammenfassung",
+		"type":"bool",
+		"default":"true"
+	},
+	{
+		"id":"genres",
+		"label":"Genre",
+		"type":"bool",
+		"default":"true"
+	},
+	{
+		"id":"rating",
+		"label":"Bewertung",
+		"type":"bool",
+		"default":"true"
+	},
+	{
+		"id":"content_rating",
+		"label":"FSK",
+		"type":"bool",
+		"default":"true"
+	}
 ]
