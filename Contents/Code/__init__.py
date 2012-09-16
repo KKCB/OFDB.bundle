@@ -81,8 +81,11 @@ class OFDBAgent(Agent.Movies):
         # Content rating
         metadata.content_rating = ''
         if Prefs['content_rating']:
-          content_rating = re.findall('Freigabe: FSK ([0-9]{1,2})', movie_page)
+          content_rating = re.findall('Freigabe: FSK.+?([0-9]{1,2}|o\.A\.)"', movie_page)
 
           if len(content_rating) > 0:
+            if content_rating[0] == 'o.A.':
+              content_rating[0] = '0'
+
             if content_rating[0] in ('0', '6', '12', '16', '18'):
               metadata.content_rating = 'de/%s' % content_rating[0]
