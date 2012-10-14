@@ -2,20 +2,8 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<key>CFBundleDevelopmentRegion</key>
-	<string>English</string>
-	<key>CFBundleExecutable</key>
-	<string>OFDB</string>
 	<key>CFBundleIdentifier</key>
 	<string>com.plexapp.agents.ofdb</string>
-	<key>CFBundleInfoDictionaryVersion</key>
-	<string>6.0</string>
-	<key>CFBundleShortVersionString</key>
-	<string>1.0</string>
-	<key>CFBundleSignature</key>
-	<string>????</string>
-	<key>CFBundleVersion</key>
-	<string>1.0</string>
 	<key>PlexAgentAttributionText</key>
 	<string>
 		The OFDB Agent provides German movie titles, summaries, genres, ratings and content ratings from &lt;a href=&quot;http://www.ofdb.de/&quot;&gt;www.ofdb.de&lt;/a&gt;
@@ -24,7 +12,5 @@
 	<string>2</string>
 	<key>PlexPluginClass</key>
 	<string>Agent</string>
-	<key>PlexPluginMode</key>
-	<string>AlwaysOn</string>
 </dict>
 </plist>
