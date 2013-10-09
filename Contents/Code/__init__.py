@@ -49,7 +49,7 @@ class OFDBAgent(Agent.Movies):
           if len(genres) > 0:
             metadata.genres.clear()
             for genre in genres:
-              metadata.genres.add(genre)
+              metadata.genres.add(genre.strip())
 
         # Rating
         metadata.rating = None
