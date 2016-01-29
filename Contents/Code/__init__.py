@@ -73,6 +73,7 @@ class OFDBAgent(Agent.Movies):
             if len(plot_text) > 0:
               summary = plot_text[0].replace('<br />', '\n')
               summary = re.sub('(\r)?\n((\r)?\n)+', '\n', summary) # Replace 2 or more newlines with just 1
+              summary = re.sub('(<b>Quelle.*?<br><br>)', '', summary) # Remove the sometimes occuring "Quelle: ..." source note
               summary = String.StripTags(summary).strip() # Strip HTML tags
 
               if summary != '':
